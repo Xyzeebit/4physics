@@ -1,0 +1,155 @@
+.bg-gray-505 {
+    background: #ededed;
+}
+
+.anchor {
+    transition: all 0.2s;
+}
+
+.weight-500 {
+    font-weight: 500;
+}
+
+.anchor:hover {
+    text-decoration: underline;
+    transform: scale(1.1);
+}
+
+.polygon {
+    clip-path: polygon(50% 0%, 65% 50%, 50% 100%, 35% 50%);
+}
+
+.text-close-center {
+    width: 50%;
+    margin: auto;
+    text-align: center;
+    padding-bottom: 1rem;
+}
+
+.img-bg {
+    background: linear-gradient(#b1b1d3, #ededed);
+}
+
+.bg-light-green {
+    background: #c8e1a1;
+}
+.line-straight {
+    transform: translateY(-20px);
+    width: 2px;
+    height: 12rem;
+    background: #ededed;
+}
+.line-bottom {
+    width: 100%;
+    height: 2px;
+    background: #ededed;
+}
+
+.form {
+    position: relative;
+    width: 100%;
+}
+.form::before {
+    content: '';
+    position: absolute;
+    margin: 0 auto;
+    width: 60%;
+    height: 100%;
+    background: #c8e1a1;
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    z-index: -1;
+    left: 0;
+    right: 0;
+    bottom: -6rem;
+}
+
+.h-80 {
+    height: 20rem;
+}
+
+.flex-center-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.text-xxs {
+    font-size: -0.125rem;
+    line-height: 1.25rem;
+}
+
+/*
+* Mobile Screen (Small Screen)
+*/
+@media screen and (max-width: 767px) {
+    .sm-hidden {
+        display: none !important;
+    }
+    .text-close-center {
+        width: 100%;
+        font-size: 4rem;
+        padding-top: 1rem;
+    }
+    
+    .text-10xl {
+        font-size: 3rem;
+        padding: 0 3rem 0 3rem;
+    }
+    .top-201 {
+        top: 2rem;
+    }
+    .top-202 {
+        top: 11rem;
+
+    }
+    .left-201 {
+        left: 0;
+    }
+
+    .line-straight {
+        transform: translateY(-20px);
+        width: 2px;
+        height: 17rem;
+        background: #ededed;
+    }
+    .form::before {
+        margin: 0 auto;
+        width: 100%;
+        height: 80%;
+    }
+}
+
+/*
+* Tablet Screen (Medium Screen)
+*/
+@media screen and (min-width: 768px) {
+    .md-hidden {
+        display: none !important;
+    }
+    .form::before {
+        margin: 0 auto;
+        width: 60%;
+    }
+    .text-10xl {
+        font-size: 5rem;
+    }
+    .top-201 {
+        top: 3rem;
+    }
+    .top-202 {
+        top: 8rem;
+
+    }
+    .left-201 {
+        left: -5rem;
+    }
+
+    .line-straight {
+        transform: translateY(-20px);
+        width: 2px;
+        height: 12rem;
+        background: #ededed;
+    }
+    
+}
