@@ -33,6 +33,9 @@
 .bg-light-green {
     background: #c8e1a1;
 }
+.text-light-green {
+    color: #c8e1a1;
+}
 .line-straight {
     transform: translateY(-20px);
     width: 2px;
@@ -82,6 +85,17 @@
     background: #f1f1f1;
 }
 
+.course-btn {
+    border: 3px solid #ffffff;
+    transition: background 0.2s;
+}
+.course-btn:hover {
+    border: 3px solid #202020;
+    background: #202020;
+    color: #ffffff;
+}
+
+
 /*
 * Mobile Screen (Small Screen)
 */
@@ -123,9 +137,11 @@
     }
     
     .side-bar {
+        position: relative;
         min-width: 300px;
         max-width: 320px;
         min-height: 100vh;
+        overflow: hidden;
     }
     .bg-overlay {
         background: #070606c4;
@@ -136,6 +152,9 @@
         left: 0;
         bottom: 0;
         z-index: 999;
+    }
+    .text-xm {
+        font-size: 3.5rem;
     }
 }
 
@@ -170,5 +189,21 @@
         height: 12rem;
         background: #ededed;
     }
+    .text-xt {
+        font-size: 4.5rem;
+    }
     
+}
+
+/*
+* Large screens (Laptop)
+*/
+@media screen and (min-width: 981px) {
+    .text-xlg {
+        font-size: 5.5rem;
+    }
+    
+    .h-90 {
+        height: 21rem;
+    }
 }
