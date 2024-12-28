@@ -95,6 +95,26 @@
     color: #ffffff;
 }
 
+.course-topic {
+    color: #000000;
+    -webkit-text-fill-color: #FFFFFF;
+    -webkit-text-stroke: 3px #000000;
+}
+
+.course-list {
+    position: relative;
+    min-width: 300px;
+    min-height: 600px;
+    overflow-y: auto;
+
+}
+
+.selected {
+    border: 3px solid #202020;
+    background: #202020;
+    color: #ffffff;
+}
+
 
 /*
 * Mobile Screen (Small Screen)
@@ -156,6 +176,20 @@
     .text-xm {
         font-size: 3.5rem;
     }
+
+    .topic-header {
+        background-image: url(../assets/physics-img.jpeg);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    
+        height: 300px;
+    }
+
+    .hide-sm {
+       display: none;
+    }
+    
 }
 
 /*
@@ -191,6 +225,19 @@
     }
     .text-xt {
         font-size: 4.5rem;
+    }
+
+    .topic-header {
+        background-image: url(../assets/physics-img.jpeg);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    
+        height: 300px;
+    }
+
+    .w-100 {
+        min-width: 20rem;
     }
     
 }
