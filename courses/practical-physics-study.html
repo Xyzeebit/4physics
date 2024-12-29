@@ -1,0 +1,188 @@
+<!Doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Physics Practical</title>
+        <link rel="stylesheet" href="../css/styles.css">
+        <link rel="stylesheet" href="../css/tailwind.min.css">
+        <script src="../js/jquery-3.7.1.min.js"></script>
+        <script src="../js/main.js"></script>
+
+    </head>
+    <body class="bg-gray-505">
+      <header class="sm-hidden sticky top-0 z-50 bg-gray-505 flex items-center justify-between px-6 lg:px-12 py-4">
+          <div class="">
+            <a href="../index.html" class="brand text-3xl">4PHYSICS</a>
+          </div>
+          <nav class="flex items-center justify-center rounded-lg py-2 px-4 lg:px-6 bg-gray-300 font-semibold shadow-sm text-gray-800">
+            <a class="mx-4 anchor" href="../index.html#courses">Courses</a>
+            <div class="w-5 h-3 polygon bg-gray-800"></div>
+            <a class="mx-4 anchor" href="../physics/learning-plan.html">Learning Plan</a>
+            <div class="w-5 h-3 polygon bg-gray-800"></div>
+            <a class="mx-4 anchor" href="../physics/quiz.html">Quiz</a>
+            <div class="w-5 h-3 polygon bg-gray-800"></div>
+            <a class="mx-4 anchor" href="../physics/resources.html">Resources</a>
+          </nav>
+          <div>
+              <a class="weight-500 transition-all bg-black py-2 px-4 text-white rounded-lg border hover:bg-white border-black hover:text-black" href="/login.html">Log in</a>
+          </div>
+      </header>
+
+      <aside class="md-hidden bg-overlay slide-out">
+        <div class="img-bg overflow-hidden rounded-r-2xl side-bar">
+
+          <div class="flex items-end justify-end p-6">
+            <button class="close-btn rounded-full font-bold text-xl w-12 h-12 flex items-center justify-center bg-light">X</button>
+          </div>
+          <nav class="mt-10">
+            <a class="anchor mb-4 text-2xl font-semibold text-gray-700 bg-light pl-4 py-4 flex items-center justify-start gap-2" href="../index.html#courses">
+              <div class="w-10 h-8 polygon bg-gray-500"></div>
+              <span>Courses</span>
+            </a>
+            <a class="anchor mb-4 text-2xl font-semibold text-gray-700 bg-light pl-4 py-4  flex items-center justify-start gap-2" href="../physics/learning-plan.html">
+              <div class="w-10 h-8 polygon bg-gray-500"></div>
+              <span>Learning Plan</span>
+            </a>
+            <a class="anchor mb-4 text-2xl font-semibold text-gray-700 bg-light pl-4 py-4  flex items-center justify-start gap-2" href="../physics/quiz.html">
+              <div class="w-10 h-8 polygon bg-gray-500"></div>
+              <span>Quiz</span>
+            </a>
+            <a class="anchor mb-4 text-2xl font-semibold text-gray-700 bg-light pl-4 py-4 flex items-center justify-start gap-2" href="../physics/resources.html">
+              <div class="w-10 h-8 polygon bg-gray-500"></div>
+              <span>Resources</span>
+            </a>
+            <div class="mt-24"></div>
+            <a class="anchor mb-4 text-2xl font-semibold text-gray-700 bg-light pl-4 py-4  flex items-center justify-start gap-2" href="../index.html#aboutus">
+              <div class="w-10 h-8 polygon bg-gray-500"></div>
+              <span>About Us</span>
+            </a>
+          </nav>
+        </div>
+
+      </aside>
+
+      <header class="sticky top-0 left-0 right-0 px-4 md:px-6 z-50 bg-gray-505 flex items-center justify-between md-hidden py-4">
+        <div class="flex items-center justify-center gap-4">
+          <button class="open-btn">
+            <div class="w-8 h-1 bg-black rounded-xl"></div>
+            <div class="w-8 h-1 bg-black rounded-xl my-1"></div>
+            <div class="w-8 h-1 bg-black rounded-xl"></div>
+          </button>
+          <a href="/index" class="font-semibold text-xl">4PHYSICS</a>
+        </div>
+        
+        <div>
+            <a class="weight-500 transition-all bg-black py-2 px-4 text-white rounded-lg border hover:bg-white border-black hover:text-black" href="/login.html">Log in</a>
+        </div>
+      </header>
+      
+      <main class="relative">
+
+        <section class="topic-header-exp">
+            <h1 class="course-topic py-8 text-center text-10xl font-bold">Experiments</h1>
+        </section>
+
+        <div class="flex items-center justify-start mt-10 px-4 py-4 md:hidden">
+            <button class="bg-black text-white text-xs px-4 py-2 rounded-xl topics-btn">Topics</button>
+        </div>
+        <section class="flex items-start justify-between gap-6 mt-6">
+            <aside class="course-list bg-gray-100 p-4 rounded-r-xl hide-sm">
+                <ul class="topics text-sm">
+                    <li id="lesson1" class="cursor-pointer course-btn px-4 py-2 w-full font-semibold shadow-sm mb-4 rounded-r-xl">
+                        General Introduction
+                    </li>
+                    <li id="lesson2" class=" cursor-pointer course-btn px-4 py-2 w-full font-semibold  shadow-sm mb-4 rounded-r-xl">
+                        Basic Measurements
+                    </li>
+                    <li id="lesson3" class=" cursor-pointer course-btn px-4 py-2 w-full font-semibold shadow-sm mb-4 rounded-r-xl">
+                        Graphical Analysis
+                    </li>
+                    <li id="lesson4" class=" cursor-pointer course-btn px-4 py-2 w-full font-semibold shadow-sm mb-4 rounded-r-xl">
+                        Error Analysis
+                    </li>
+                    <li id="lesson5" class=" cursor-pointer course-btn px-4 py-2 w-full font-semibold shadow-sm mb-4 rounded-r-xl">
+                        Mechanics and Properties of Matter
+                    </li>
+                    <li id="lesson6" class=" cursor-pointer course-btn px-4 py-2 w-full font-semibold shadow-sm mb-4 rounded-r-xl">
+                        Heat (theoritical background)
+                    </li>
+                    <li id="lesson7" class=" cursor-pointer course-btn px-4 py-2 w-full font-semibold shadow-sm mb-4 rounded-r-xl">
+                        Experiments on Basic Measurements
+                    </li>
+                    <li id="lesson8" class=" cursor-pointer course-btn px-4 py-2 w-full font-semibold shadow-sm mb-4 rounded-r-xl">
+                        Experiments on Mechanics
+                    </li>
+                    <li id="lesson9" class=" cursor-pointer course-btn px-4 py-2 w-full font-semibold shadow-sm mb-4 rounded-r-xl">
+                        Experiments on Heats
+                    </li>               
+                    
+                </ul>
+            </aside>
+
+            <div class=" p-4 md:mr-4 lg:mr-10 bg-gray-50 rounded-xl w-full show-sm">
+                
+            </div>
+
+        </section>
+
+        <section class="py-10 md:py-16 mt-8 md:px-10 relative form">
+            <h2 class="weight-500 text-4xl text-center">WANT TO <span class="text-gray-600">FIND</span> OUT MORE?</h2>
+            <div class="px-4 md:w-2/3 lg:w-1/3 m-auto">
+                <p class="text-center text-gray-700 mt-4">
+                    We are here to answer any questions. You will understand our approach to modern education
+                    and what you can achieve by studing with us.
+                </p>
+            </div>
+            <div class="px-4 flex items-center justify-center mt-10">
+                <form class="md:w-3/4 lg:w-1/2" action="index.html" method="post">
+                <div class="flex items-center justify-between">
+                    <input type="text" placeholder="Your name" class="bg-white h-10 px-4 rounded-lg w-1/2 mr-6">
+                    <input type="text" placeholder="Your email" class="bg-white h-10 px-4 rounded-lg w-1/2">
+                </div>
+                <div class="mt-8">
+                    <textarea placeholder="Message" class="bg-white w-full h-48 px-4 pt-4 rounded-lg"></textarea>
+                </div>
+                <div class="flex items-center justify-center mt-8">
+                    <input type="submit" class="transition-all weight-500 cursor-pointer bg-black text-white py-2 px-6 rounded-lg text-sm border border-black hover:bg-white hover:text-black" value="Send message">
+                </div>
+                </form>
+            </div>
+          </section>
+
+
+        </main>
+
+
+        <footer class="mt-10 md:px-12 lg:px-20">
+            <div class=" bg-black px-8 md:px-10 lg:px-12 mb-10 rounded-lg">
+              <div class="flex justify-between items-center flex-col md:flex-row text-white py-3">
+                <div class="font-bold mt-4 mb-4 md:mt-0 md:mb-0">
+                  <a href="/index.html" class="text-sm">4PHYSICS</a>
+                </div>
+                <nav class="flex items-center justify-center flex-col md:flex-row gap-y-2 rounded-lg py-2 px-6 text-sm shadow-sm text-white">
+                    <a class="mx-4 text-xxs md:text-sm hover:underline" href="../index.html#courses">Courses</a>
+                    <div class="w-5 h-3 polygon bg-white"></div>
+                    <a class="mx-4 text-xxs md:text-sm hover:underline" href="../physics/learning-plan.html">Learning Plan</a>
+                    <div class="w-5 h-3 polygon bg-white"></div>
+                    <a class="mx-4 text-xxs md:text-sm hover:underline" href="../physics/quiz.html">Quiz</a>
+                    <div class="w-5 h-3 polygon bg-white"></div>
+                    <a class="mx-4 text-xxs md:text-sm hover:underline" href="../physics/resources.html">Resources</a>
+                </nav>
+                <div class="flex items-center justify-center text-sm mt-4 md:mt-0">
+                  <a href="https://fb.com" class="mr-3">
+                    <img src="../assets/facebook.svg" alt="facebook" width="20" height="20" class="">
+                  </a>
+                  <a href="https://x.com">
+                    <img src="../assets/facebook.svg" alt="Twitter" width="20" height="20" class="">
+                  </a>
+                  <a href="https://insta.com" class="ml-3">
+                    <img src="../assets/facebook.svg" alt="Instagram" width="20" height="20" class="">
+                  </a>
+                </div>
+              </div>
+              <p class="pb-3 text-gray-600 text-center text-sm">&copy;Copyright 4PHYSICS 2024</p>
+            </div>
+        </footer>
+    </body>
+</html>

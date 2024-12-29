@@ -1,5 +1,21 @@
 const DB_NAME = "physics004"
 
+
+const QUIZ_GENERAL = [
+    {
+        question: "If a car travels at 200km/hr in 4 hours, what is the average speed",
+        options: ["40km/hr", "50km/hr", "60km/hr", "70km/hr"],
+        answer: 1
+    },
+    {
+        question: "How long will it take a car of average velocity of 240km/hr to cover a displacement of 20km",
+        options: ["100 sec", "200 sec", "300 sec", "400 sec"],
+        answer: 2
+    },
+]
+
+var opt = -1
+
 function initSessionStorage() {
     try {
         const session = localStorage.getItem(DB_NAME);
@@ -26,7 +42,7 @@ function initSessionStorage() {
                     id: "" // course button id no
                 },
                 questions: {
-                    general: [],
+                    general: QUIZ_GENERAL,
                     practical: []
                 }
 
@@ -60,26 +76,38 @@ function getDB() {
     }
 }
 
+/**
+ * Document Listeners
+ */
+
 $(document).ready(function() {
 
     const db = initSessionStorage();
     console.log(db)
 
+    const quiz = new Set();
+    const answers = {}
+    console.log(quiz)
 
 
     $('.close-btn').on('click', function() {
-        $('.bg-overlay').hide(200)
+        $('.bg-overlay').addClass('slide-out')
     })
 
     $('.open-btn').on('click', function() {
-        $('.bg-overlay').show('slow')
+        $('.bg-overlay').removeClass('slide-out')
     })
 
     addTopicEventListener(db);
     addSelectedTopicListener(db.selected);
     setTopic(db.selected);
     addTopicsButtonListener();
-
+    
+    addOptEventListener(answers)
+    addNextQuestionEventListListener(quiz, db.questions.general, answers);
+    setInitialQuestion(quiz, db.questions.general)
+    
+    
 })
 
 function setTopic(selected) {
@@ -95,15 +123,20 @@ function addTopicEventListener(db) {
 
     if (generalTopics) {
         generalTopics.on("click", function() {
-            const topicId = $(this).attr("id")
-            const link = location.href.replace("general-physics.html", "general-physics-study.html");
+            const topicId = $(this).attr("id");
+            let addr = location.href;
+            if(addr.indexOf('general') !== -1) {
+                addr = location.href.replace("general-physics.html", "general-physics-study.html");
+            } else {
+                addr = location.href.replace("practical-physics.html", "practical-physics-study.html");
+            }
             const topic = $(this).text();
             db.selected = {
                 id: topicId,
                 topic,
             }
             saveDB(db)
-            location.href = link;
+            location.href = addr;
         })
     }
     if (studyTopics) {
@@ -130,4 +163,198 @@ function addTopicsButtonListener() {
     $('.topics-btn').on('click', function() {
         $('.course-list').toggleClass('hide-sm')
     })
+}
+
+function clearOptions() {
+    for (let j = 1; j <= 4; j++) {
+        $(`.opt-${j}`).removeClass('bg-gray-300').addClass('bg-gray-100');
+        $(`.opt-${j} div`).removeClass('bg-green-500').addClass('bg-white')
+    }
+}
+
+function addOptEventListener(answers) {
+    for (let i = 1; i <= 4; i++) {
+        $(`.opt-${i}`).on('click', function() {
+            clearOptions()            
+            $(this).removeClass('bg-gray-100').addClass('bg-gray-300')
+            $(`.opt-${i} div`).removeClass('bg-white').addClass('bg-green-500')
+            answers[opt] = i - 1
+            console.log(answers)
+        })
+    }
+
+}
+
+function addNextQuestionEventListListener(quiz, questions, answers) {
+    
+    $('.next-btn').on('click', function() {
+        clearOptions()
+        if (quiz.size == questions.length) {
+            $('.progress-panel').removeClass('hidden')
+            $('.quiz-panel').addClass('hidden')
+            showQuizProgress(questions, answers)
+            opt = -1
+        }
+        let idx = Math.floor(Math.random() * questions.length)
+        while(quiz.has(idx) && quiz.size < questions.length ) {
+            idx = Math.floor(Math.random() * questions.length)
+        }
+        quiz.add(idx)
+        opt = idx
+        setQuestion(questions[idx])
+        $('.quiz-counter').text(`Question ${quiz.size}/${questions.length}`)
+    })
+}
+
+function setQuestion(quiz) {
+    const q = $('.question');
+    if (q) {
+        q.text(quiz.question)
+        for (let i = 0; i <= 4; i++) {
+            $(`.opt-${i + 1} span`).text(quiz.options[i])
+        }
+    }
+    
+}
+
+function setInitialQuestion(quiz, questions) {
+    const q = $('.question');
+    if (q) {
+        $('.quiz-counter').text(`Question 1/${questions.length}`)
+        let idx = Math.floor(Math.random() * questions.length)
+        quiz.add(idx)
+        opt = idx
+        setQuestion(questions[idx])
+    }
+}
+
+
+function showQuizProgress(questions, answers) {
+    const { correct, wrong, total } = getQuizResult(questions, answers)
+    setWrongProgressBar(wrong)
+    setCorrectProgressBar(correct)
+    setTotalProgressBar(total)
+}
+
+function getQuizResult(questions, answers) {
+    let c = 0;
+    let w = 0;
+    let t = questions.length;
+    for(let i = 0; i < questions.length; i++) {
+        if (answers[i] == questions[i].answer) {
+            c++
+        } else {
+            w++
+        }
+    }
+
+    return {
+        correct: c,
+        wrong: w,
+        total: t
+    }
+}
+
+function setWrongProgressBar(w) {
+    const container = document.getElementById("wrong")
+
+    const bar = new ProgressBar.SemiCircle(container, {
+        strokeWidth: 6,
+        color: "#FFEA82",
+        trailColor: "#eee",
+        trailWidth: 1,
+        easing: "easeInOut",
+        duration: 1400,
+        svgStyle: null,
+        text: {
+            value: "",
+            alignToBottom: false
+        },
+        from: {
+            color: "#FFEA82", //#2c9931
+        },
+        to: {
+            color: "#ED6A5A"
+        },
+        step: (state, bar) => {
+            bar.path.setAttribute('stroke', state.color);
+            let value = Math.round(bar.value()*w)
+            bar.setText(value)
+           
+            bar.text.style.color = state.color
+            
+        }
+    });
+    bar.text.style.fontFamily = `"Raleway", Helvetica, sanserif`
+    bar.text.style.fontSize = '2em'
+    bar.animate(1.0)
+}
+
+function setCorrectProgressBar(c) {
+    const container = document.getElementById("correct")
+
+    const bar = new ProgressBar.SemiCircle(container, {
+        strokeWidth: 6,
+        color: "#FFEA82",
+        trailColor: "#eee",
+        trailWidth: 1,
+        easing: "easeInOut",
+        duration: 1400,
+        svgStyle: null,
+        text: {
+            value: "",
+            alignToBottom: false
+        },
+        from: {
+            color: "#FFEA82"
+        },
+        to: {
+            color: "#2c9931"
+        },
+        step: (state, bar) => {
+            bar.path.setAttribute('stroke', state.color);
+            let value = Math.round(bar.value()*c)
+            bar.setText(value)
+
+            bar.text.style.color = state.color
+            
+        }
+    });
+    bar.text.style.fontFamily = `"Raleway", Helvetica, sanserif`
+    bar.text.style.fontSize = '2em'
+    bar.animate(1.0)
+}
+
+function setTotalProgressBar(t) {
+    const container = document.getElementById("quizzes")
+
+    const bar = new ProgressBar.Circle(container, {
+        strokeWidth: 6,
+        color: "#FFEA82",
+        trailColor: "#eee",
+        trailWidth: 1,
+        easing: "easeInOut",
+        duration: 1400,
+        svgStyle: null,
+        text: {
+            value: "",
+            alignToBottom: false
+        },
+        from: {
+            color: "#FFEA82"
+        },
+        to: {
+            color: "#333"
+        },
+        step: (state, bar) => {
+            bar.path.setAttribute('stroke', state.color);
+            let value = Math.round(bar.value()*t)
+            bar.setText(value)
+            bar.text.style.color = state.color
+            
+        }
+    });
+    bar.text.style.fontFamily = `"Raleway", Helvetica, sanserif`
+    bar.text.style.fontSize = '4rem'
+    bar.animate(1.0)
 }

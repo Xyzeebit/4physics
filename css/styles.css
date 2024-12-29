@@ -116,6 +116,7 @@
 }
 
 
+
 /*
 * Mobile Screen (Small Screen)
 */
@@ -172,9 +173,14 @@
         left: 0;
         bottom: 0;
         z-index: 999;
+        transition: left 0.3s ease-in-out;
     }
     .text-xm {
-        font-size: 3.5rem;
+        font-size: 3.3rem;
+    }
+
+    .slide-out {
+        left: -700px;
     }
 
     .topic-header {
@@ -182,6 +188,16 @@
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
+        background-attachment: fixed;
+    
+        height: 300px;
+    }
+    .topic-header-exp {
+        background-image: url(../assets/velocity.jpeg);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
     
         height: 300px;
     }
@@ -232,6 +248,17 @@
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
+        background-attachment: fixed;
+    
+        height: 300px;
+    }
+
+    .topic-header-exp {
+        background-image: url(../assets/vector-scalars.jpeg);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
     
         height: 300px;
     }
