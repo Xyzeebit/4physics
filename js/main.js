@@ -44,7 +44,8 @@ function initSessionStorage() {
                 questions: {
                     general: QUIZ_GENERAL,
                     practical: []
-                }
+                },
+                plan: ["","space and time","","","",'motion','','','heat','','','','','',''],
 
 
             }
@@ -60,9 +61,11 @@ function initSessionStorage() {
 function saveDB(db) {
     try {
         const data = JSON.stringify(db)
+        localStorage.removeItem(DB_NAME)
         localStorage.setItem(DB_NAME, data)
     } catch (error) {
         // do something
+        console.log(error)
     }
 }
 
@@ -106,7 +109,16 @@ $(document).ready(function() {
     addOptEventListener(answers)
     addNextQuestionEventListListener(quiz, db.questions.general, answers);
     setInitialQuestion(quiz, db.questions.general)
-    
+
+    showSignIn()
+    showSignUp()
+    stopFormSubmission()
+
+    addSignInEventListener(db)
+    addSignUpEventListener(db)
+
+    saveStudyPlan(db)
+    loadStudyPlan(db.plan)
     
 })
 
@@ -218,13 +230,17 @@ function setQuestion(quiz) {
 }
 
 function setInitialQuestion(quiz, questions) {
-    const q = $('.question');
-    if (q) {
-        $('.quiz-counter').text(`Question 1/${questions.length}`)
-        let idx = Math.floor(Math.random() * questions.length)
-        quiz.add(idx)
-        opt = idx
-        setQuestion(questions[idx])
+    try {
+        const q = $('.question');
+        if (q) {
+            $('.quiz-counter').text(`Question 1/${questions.length}`)
+            let idx = Math.floor(Math.random() * questions.length)
+            quiz.add(idx)
+            opt = idx
+            setQuestion(questions[idx])
+        }
+    } catch (error) {
+        
     }
 }
 
@@ -357,4 +373,118 @@ function setTotalProgressBar(t) {
     bar.text.style.fontFamily = `"Raleway", Helvetica, sanserif`
     bar.text.style.fontSize = '4rem'
     bar.animate(1.0)
+}
+
+
+function showSignIn() {
+    $('.signin-btn').on('click', function() {
+        $('.signup').addClass('hidden')
+        $('.signin').removeClass('hidden')
+    })  
+}
+
+function showSignUp() {
+    $('.signup-btn').on('click', function() {
+        $('.signin').addClass('hidden')
+        $('.signup').removeClass('hidden')
+    })  
+}
+
+function stopFormSubmission() {
+    $('.signin').on('submit', function(e) {
+        e.preventDefault()
+    })
+    $('.signup').on('submit', function(e) {
+        e.preventDefault()
+    })
+}
+
+function addSignInEventListener(db) {
+    $('#signin').on('click', function() {
+        const username = $('.signin #username').val()
+        const pwd = $('.signin #password').val()
+        const err = $('.signin-err')
+        if(username.trim().length < 6) {
+            err.removeClass('hidden')
+            err.text("*Username should be 6 or more characters")
+            return
+        }
+        if(pwd.trim().length < 6) {
+            err.removeClass('hidden')
+            err.text("*Password should be 6 or more characters")
+        }
+        db.user.username = username
+        db.username.is_logged_in = true
+        saveDB(db)
+        location.href = 'index.html'
+    })
+}
+
+
+
+function addSignUpEventListener(db) {
+    $('#signup').on('click', function() {
+        
+        const firstname = $('.signup #firstname').val()
+        const lastname = $('.signup #lastname').val()
+        const username = $('.signup #Username').val()
+        const pwd = $('.signup #Password').val()
+        const cpwd = $('.signup #cpassword').val()
+        const err = $('.signup-err')
+
+        if(username.trim().length < 6) {
+            err.removeClass('hidden')
+            err.text("*Username should be 6 or more characters")
+            return
+        }
+        if(firstname.trim().length < 2) {
+            err.removeClass('hidden')
+            err.text("*First name is required")
+            return
+        }
+        if(lastname.trim().length < 2) {
+            err.removeClass('hidden')
+            err.text("*Last name is required")
+            return
+        }
+        if(pwd.trim().length < 6) {
+            err.removeClass('hidden')
+            err.text("*Password should be 6 or more characters")
+            return
+        }
+        if(pwd != cpwd) {
+            err.removeClass('hidden')
+            err.text("*Passwords do not match")
+            return
+        }
+
+        db.user.username = username
+        db.user.firstname = firstname
+        db.user.lastname = lastname
+        db.user.is_logged_in = true
+        saveDB(db)
+        location.href = 'index.html'
+
+    })
+}
+
+
+function saveStudyPlan(db) {
+    $('#planBtn').on('click', function() {
+        
+        for(let i = 0; i < 15; i++) {
+            const v = $(`#in${i + 1}`).val()
+            if(v) {
+                
+                db.plan[i] = v
+            }
+        }
+        saveDB(db)
+    })
+}
+
+function loadStudyPlan(plan) {
+    for(let i = 0; i < plan.length; i++) {
+        $(`#in${i + 1}`).val(plan[i])
+    }
 }
